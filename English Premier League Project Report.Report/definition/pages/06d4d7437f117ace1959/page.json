@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "06d4d7437f117ace1959",
+  "displayName": "Season(s) Overview",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

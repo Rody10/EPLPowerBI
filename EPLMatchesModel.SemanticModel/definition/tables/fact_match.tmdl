@@ -1,0 +1,235 @@
+table fact_match
+	lineageTag: 7a4fc294-41fe-4239-abbd-075ef6834483
+	sourceLineageTag: [dbo].[fact_match]
+
+	column match_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4367c969-5e12-41bc-95de-3ee42058c11b
+		sourceLineageTag: match_id
+		summarizeBy: none
+		sourceColumn: match_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9e6b3e37-9d40-4aef-a9aa-4a1df41dec7f
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_team
+		dataType: string
+		lineageTag: 6d59eb92-c03b-4788-9837-4f2da0871498
+		sourceLineageTag: home_team
+		summarizeBy: none
+		sourceColumn: home_team
+
+		annotation SummarizationSetBy = Automatic
+
+	column away_team
+		dataType: string
+		lineageTag: 570e873d-626d-42ef-abbe-488f6a30a2aa
+		sourceLineageTag: away_team
+		summarizeBy: none
+		sourceColumn: away_team
+
+		annotation SummarizationSetBy = Automatic
+
+	column ft_home_goals
+		dataType: int64
+		formatString: 0
+		lineageTag: 92ad6b49-6076-47c1-b1e6-78d3b1977564
+		sourceLineageTag: ft_home_goals
+		summarizeBy: sum
+		sourceColumn: ft_home_goals
+
+		annotation SummarizationSetBy = Automatic
+
+	column ft_away_goals
+		dataType: int64
+		formatString: 0
+		lineageTag: 2263f80b-d155-4dd5-bebb-93df8502db13
+		sourceLineageTag: ft_away_goals
+		summarizeBy: sum
+		sourceColumn: ft_away_goals
+
+		annotation SummarizationSetBy = Automatic
+
+	column ft_result
+		dataType: string
+		lineageTag: bf7c130c-84cc-4760-96c8-7a8b38bccf31
+		sourceLineageTag: ft_result
+		summarizeBy: none
+		sourceColumn: ft_result
+
+		annotation SummarizationSetBy = Automatic
+
+	column ht_home_goals
+		dataType: int64
+		formatString: 0
+		lineageTag: d7070f54-8212-4339-a231-16af60381631
+		sourceLineageTag: ht_home_goals
+		summarizeBy: sum
+		sourceColumn: ht_home_goals
+
+		annotation SummarizationSetBy = Automatic
+
+	column ht_away_goals
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a186c7e-c72e-4833-9df0-620498029491
+		sourceLineageTag: ht_away_goals
+		summarizeBy: sum
+		sourceColumn: ht_away_goals
+
+		annotation SummarizationSetBy = Automatic
+
+	column ht_result
+		dataType: string
+		lineageTag: b32fcf0b-eb0f-4929-9a5f-87e10f9cb7a8
+		sourceLineageTag: ht_result
+		summarizeBy: none
+		sourceColumn: ht_result
+
+		annotation SummarizationSetBy = Automatic
+
+	column referee
+		dataType: string
+		lineageTag: 512ff092-74d4-4d15-810e-60df3c1d2fea
+		sourceLineageTag: referee
+		summarizeBy: none
+		sourceColumn: referee
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_shots
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a616aa2-371f-495f-8240-c945c43c8cea
+		sourceLineageTag: home_shots
+		summarizeBy: sum
+		sourceColumn: home_shots
+
+		annotation SummarizationSetBy = Automatic
+
+	column away_shots
+		dataType: int64
+		formatString: 0
+		lineageTag: f2b4e3c3-c404-4748-be70-647dfab41a0a
+		sourceLineageTag: away_shots
+		summarizeBy: sum
+		sourceColumn: away_shots
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_sot
+		dataType: int64
+		formatString: 0
+		lineageTag: 00d022e1-59b6-483a-b948-883c1cf44e66
+		sourceLineageTag: home_sot
+		summarizeBy: sum
+		sourceColumn: home_sot
+
+		annotation SummarizationSetBy = Automatic
+
+	column away_sot
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f5e8190-dd4a-4e24-adaa-96163204711d
+		sourceLineageTag: away_sot
+		summarizeBy: sum
+		sourceColumn: away_sot
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_fouls
+		dataType: int64
+		formatString: 0
+		lineageTag: ab21dccb-dd1a-4c1a-953b-cc667bab0e67
+		sourceLineageTag: home_fouls
+		summarizeBy: sum
+		sourceColumn: home_fouls
+
+		annotation SummarizationSetBy = Automatic
+
+	column away_fouls
+		dataType: int64
+		formatString: 0
+		lineageTag: 4636cf07-8a45-4508-aac8-de870a0ce801
+		sourceLineageTag: away_fouls
+		summarizeBy: sum
+		sourceColumn: away_fouls
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_corners
+		dataType: int64
+		formatString: 0
+		lineageTag: 96d65f25-34d7-43c8-a112-748fbba50551
+		sourceLineageTag: home_corners
+		summarizeBy: sum
+		sourceColumn: home_corners
+
+		annotation SummarizationSetBy = Automatic
+
+	column away_corners
+		dataType: int64
+		formatString: 0
+		lineageTag: aaf9ae05-30ee-4185-a94e-4869734257fb
+		sourceLineageTag: away_corners
+		summarizeBy: sum
+		sourceColumn: away_corners
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_yc
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f7c7b5f-261d-4c05-9188-0afe68e21549
+		sourceLineageTag: home_yc
+		summarizeBy: sum
+		sourceColumn: home_yc
+
+		annotation SummarizationSetBy = Automatic
+
+	column away_yc
+		dataType: int64
+		formatString: 0
+		lineageTag: d747d5e8-5dfd-404e-85f1-2eaff2e00651
+		sourceLineageTag: away_yc
+		summarizeBy: sum
+		sourceColumn: away_yc
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_rc
+		dataType: int64
+		formatString: 0
+		lineageTag: d0ff21ec-4436-4cac-9727-2fb76d380755
+		sourceLineageTag: home_rc
+		summarizeBy: sum
+		sourceColumn: home_rc
+
+		annotation SummarizationSetBy = Automatic
+
+	column away_rc
+		dataType: int64
+		formatString: 0
+		lineageTag: ec5349cf-b80f-411b-9042-df91e0dfb384
+		sourceLineageTag: away_rc
+		summarizeBy: sum
+		sourceColumn: away_rc
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_match = entity
+		mode: directLake
+		source
+			entityName: fact_match
+			expressionSource: 'DirectLake - EPLMatchesLakehouse'
+

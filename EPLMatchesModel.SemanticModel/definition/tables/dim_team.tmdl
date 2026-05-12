@@ -1,0 +1,29 @@
+table dim_team
+	lineageTag: 79b2ca21-d5d9-4824-857b-e42ce8d5ceca
+	sourceLineageTag: [dbo].[dim_team]
+
+	column team_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0693b240-37a1-426c-b99b-e82d820c1005
+		sourceLineageTag: team_id
+		summarizeBy: none
+		sourceColumn: team_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column team_name
+		dataType: string
+		lineageTag: cfea9071-1dd3-4e63-a2c3-5742c2ee7176
+		sourceLineageTag: team_name
+		summarizeBy: none
+		sourceColumn: team_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_team = entity
+		mode: directLake
+		source
+			entityName: dim_team
+			expressionSource: 'DirectLake - EPLMatchesLakehouse'
+

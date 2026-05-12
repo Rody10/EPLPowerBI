@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "8d3cf4f6d4ce2357156d",
+  "displayName": "Team Performance Deep Dive",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

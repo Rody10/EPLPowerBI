@@ -1,0 +1,269 @@
+table _Measures
+	lineageTag: 27945973-945c-479f-8370-4d1168579979
+
+	measure 'Matches Played' =
+			
+			VAR TeamName = SELECTEDVALUE(dim_team[team_name])
+			RETURN
+			CALCULATE(
+			    COUNTROWS(fact_match),
+			    fact_match[home_team] = TeamName ||
+			    fact_match[away_team] = TeamName
+			) -- via bridge
+		formatString: 0
+		lineageTag: 97687346-fd09-46e7-a8fb-95d1f2a605c4
+
+	measure Wins = ```
+			CALCULATE(
+			    COUNTROWS(fact_match),
+			    FILTER(fact_match, 
+			        (fact_match[home_team] = SELECTEDVALUE(dim_team[team_name]) 
+			            && fact_match[ft_result] = "H") ||
+			        (fact_match[away_team] = SELECTEDVALUE(dim_team[team_name]) 
+			            && fact_match[ft_result] = "A")
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: f4049be9-1244-4c40-94cc-bd7037466e90
+
+	measure Draws = ```
+			
+			VAR TeamName = SELECTEDVALUE(dim_team[team_name])
+			RETURN 
+			CALCULATE(
+			COUNTROWS(fact_match),
+			fact_match[ft_result] = "D",   
+			FILTER(   
+			fact_match,
+			fact_match[home_team] = TeamName ||
+			fact_match[away_team] = TeamName
+			))
+			```
+		formatString: 0
+		lineageTag: 7570b1bb-a232-4e0c-b083-309b71543a8a
+
+	measure 'Goals For' =
+			
+			VAR TeamName = SELECTEDVALUE(dim_team[team_name])
+			VAR HomeGoals = CALCULATE(
+			    SUM(fact_match[ft_home_goals]),
+			    fact_match[home_team] = TeamName
+			)
+			VAR AwayGoals = CALCULATE(
+			    SUM(fact_match[ft_away_goals]),
+			    fact_match[away_team] = TeamName
+			)
+			RETURN
+			HomeGoals + AwayGoals
+		formatString: 0
+		lineageTag: 8f3652ef-f573-49bd-a464-62bfb0261f16
+
+	measure Losses =
+			
+			VAR TeamName = SELECTEDVALUE(dim_team[team_name])
+			RETURN
+			CALCULATE(
+			[Matches Played] - [Wins] - [Draws],
+			FILTER(
+			fact_match,
+			fact_match[home_team] = TeamName ||
+			fact_match[away_team] = TeamName))
+		formatString: 0
+		lineageTag: 60e8f829-6667-4d47-8a75-619eb8cb17ff
+
+	measure 'Goals Against' =
+			
+			VAR TeamName = SELECTEDVALUE(dim_team[team_name])
+			VAR HomeGoalsConceded = CALCULATE(
+			    SUM(fact_match[ft_away_goals]),
+			    fact_match[home_team] = TeamName
+			)
+			VAR AwayGoalsConceded = CALCULATE(
+			    SUM(fact_match[ft_home_goals]),
+			    fact_match[away_team] = TeamName
+			)
+			RETURN
+			HomeGoalsConceded + AwayGoalsConceded
+		formatString: 0
+		lineageTag: c908e03f-6a63-4301-b8c3-dc7a17b9f766
+
+	measure 'Goal Difference' = [Goals For] - [Goals Against]
+		formatString: 0
+		lineageTag: 01e91ed8-2c94-4b38-99b6-f6327a9a52b9
+
+	measure Points = ([Wins]*3) + [Draws]
+		formatString: 0
+		lineageTag: 6912e535-e014-42c8-bb98-168df0a37249
+
+	measure Position =
+			
+			IF(
+			    ISBLANK([Matches Played]),
+			    BLANK(),
+			    RANKX(
+			        FILTER(
+			            ALL(dim_team[team_name]),
+			            NOT ISBLANK(
+			                CALCULATE([Matches Played])
+			            )
+			        ),
+			        [Points] * 1000000 + [Goal Difference] * 1000 + [Goals For],
+			        ,
+			        DESC,
+			        DENSE
+			    )
+			)
+		formatString: 0
+		lineageTag: 679c6974-10cf-4475-93c3-fd2a594551c5
+
+	measure 'Selected Seasons' =
+			
+			COUNTROWS(
+			    ALLSELECTED(dim_date[season])
+			)
+		formatString: 0
+		lineageTag: cb75a3ff-a76b-4ee4-9865-901569dfe764
+
+	measure 'Position Highlight' =
+			
+			IF(
+			    [Selected Seasons] = 1,
+			    SWITCH(
+			        TRUE(),
+			        [Position] <= 4, "#1f4e79",
+			        [Position] >= 18, "#7f0000",
+			        "#ffffff"
+			    ),
+			    "#ffffff"
+			)
+		lineageTag: 170a445c-f338-43d1-9976-939a9b072744
+
+	measure 'Position Text Colour' =
+			
+			IF(
+			    [Selected Seasons] = 1,
+			    SWITCH(
+			        TRUE(),
+			        [Position] <= 4, "#ffffff",
+			        [Position] >= 18, "#ffffff",
+			        "#000000"
+			    ),
+			    "#000000"
+			)
+		lineageTag: c92b30d2-f561-450a-a8a9-e3e61eb211e2
+
+	measure 'Total Goals' = SUMX(fact_match, [ft_away_goals]+[ft_home_goals])
+		formatString: 0
+		lineageTag: 22d4d950-4f39-459a-adc6-bdcb855c0f9b
+
+	measure 'Home Win Percentage' = ```
+			
+			VAR NumberOfMatches = CALCULATE(
+			COUNTROWS(fact_match)) 
+			VAR NumberOfWins = CALCULATE(
+			COUNTROWS(fact_match), FILTER(fact_match, fact_match[ft_result] = "H"))
+			RETURN   
+			(NumberOfWins/NumberOfMatches)*100
+			```
+		lineageTag: a380f84e-0569-4683-8b13-a776724cc64c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Away Win Percentage' = ```
+			
+			VAR NumberOfMatches = CALCULATE(
+			COUNTROWS(fact_match)) 
+			VAR NumberOfWins = CALCULATE(
+			COUNTROWS(fact_match), FILTER(fact_match, fact_match[ft_result] = "A"))
+			RETURN   
+			(NumberOfWins/NumberOfMatches)*100
+			```
+		lineageTag: 46039ae1-0bcf-49b8-a729-c8e20698824b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Win Margin' =
+			
+			VAR TeamName = SELECTEDVALUE(dim_team[team_name])
+			VAR HomeGoals = SELECTEDVALUE(fact_match[ft_home_goals])
+			VAR AwayGoals = SELECTEDVALUE(fact_match[ft_away_goals])
+			VAR IsHome = SELECTEDVALUE(team_match[is_home])
+			RETURN
+			IF(
+			    IsHome,
+			    HomeGoals - AwayGoals,
+			    AwayGoals - HomeGoals
+			)
+		formatString: 0
+		lineageTag: 795c381e-4414-4d09-95dd-e8be2a0d2c16
+
+	measure 'Match Result' =
+			
+			VAR TeamID = SELECTEDVALUE(dim_team[team_id])
+			VAR HomeGoals = SELECTEDVALUE(fact_match[ft_home_goals])
+			VAR AwayGoals = SELECTEDVALUE(fact_match[ft_away_goals])
+			VAR IsHome =
+			    CALCULATE(
+			        SELECTEDVALUE(team_match[is_home]),
+			        TREATAS({TeamID}, team_match[team_id])
+			    )
+			RETURN
+			IF(
+			    IsHome,
+			    SWITCH(TRUE(),
+			        HomeGoals > AwayGoals, "W",
+			        HomeGoals = AwayGoals, "D",
+			        "L"
+			    ),
+			    SWITCH(TRUE(),
+			        AwayGoals > HomeGoals, "W",
+			        AwayGoals = HomeGoals, "D",
+			        "L"
+			    )
+			)
+		lineageTag: ba474209-07dd-4086-8bb2-79e55e8608f8
+
+	measure 'Match Colour' =
+			
+			VAR Result = [Match Result]
+			VAR Margin = ABS([Win Margin])
+			VAR Intensity = SWITCH(TRUE(),
+			    Margin >= 4, 1.0,
+			    Margin = 3, 0.8,
+			    Margin = 2, 0.6,
+			    Margin = 1, 0.4,
+			    0.3
+			)
+			VAR GreenR = INT(50 * (1 - Intensity))
+			VAR GreenG = INT(150 + 50 * Intensity)
+			VAR RedR = INT(150 + 50 * Intensity)
+			RETURN
+			SWITCH(TRUE(),
+			    Result = "W", "rgb(" & GreenR & "," & GreenG & ",50)",
+			    Result = "L", "rgb(" & RedR & ",50,50)",
+			    Result = "D", "rgb(255,200,0)",
+			    "rgb(255,255,255)"
+			)
+		lineageTag: dfea7c3e-f46f-4f82-b9a0-880c63b72446
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 6763bae4-2f96-4278-8e8a-16e87e39ac3f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 1e0fdbf1d1e04b17a9082a0af182e412
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":null}
+
+	annotation 277cc1b9-af89-4597-8e15-cacc25c0886b = To use special characters in a calculated table name, enclose the entire name in brackets ( [] ) and add a ] to any closing brackets in the name.
+

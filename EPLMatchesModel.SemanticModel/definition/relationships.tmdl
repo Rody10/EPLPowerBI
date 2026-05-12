@@ -1,0 +1,26 @@
+relationship c20fe1b2-4c92-a9f5-bfb7-f1b5077a198f
+	fromColumn: fact_match.date
+	toColumn: dim_date.date
+
+relationship bb843f92-e387-ee2b-214c-ce056365b781
+	fromColumn: fact_match.referee
+	toColumn: dim_referee.referee
+
+relationship 017e50e2-769a-24d9-66ad-d8a5f776fb53
+	fromColumn: team_match.match_id
+	toColumn: fact_match.match_id
+
+relationship bd914a82-bf89-5d70-65ff-4e8fe4f072d0
+	fromColumn: team_match.team_id
+	toColumn: dim_team.team_id
+
+relationship 528575bf-41ed-df45-8480-d7148d0db241
+	isActive: false
+	fromColumn: fact_match.home_team
+	toColumn: dim_team.team_name
+
+relationship ef888d90-e6f9-7256-db4d-18c9f2fa0608
+	isActive: false
+	fromColumn: fact_match.away_team
+	toColumn: dim_team.team_name
+

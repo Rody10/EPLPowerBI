@@ -1,0 +1,9 @@
+expression 'DirectLake - EPLMatchesLakehouse' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/1c0aa1ff-665e-4941-bad9-6f8cc10996e6/d892b988-e8b5-4aef-9a9b-f17b949b6724", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: 5290a75d-9b49-4c33-afd4-4584f9bd45ad
+
+	annotation PBI_IncludeFutureArtifacts = False
+

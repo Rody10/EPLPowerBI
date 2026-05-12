@@ -1,0 +1,40 @@
+table team_match
+	lineageTag: 94eb2e3d-30f4-409e-a84c-bcbaef20ca86
+	sourceLineageTag: [dbo].[team_match]
+
+	column match_id
+		dataType: int64
+		formatString: 0
+		lineageTag: cafadca7-0028-49c3-bb09-77c167b07f58
+		sourceLineageTag: match_id
+		summarizeBy: none
+		sourceColumn: match_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_home
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 11ef3f13-a6ab-4eda-b76d-dccc82fedc97
+		sourceLineageTag: is_home
+		summarizeBy: none
+		sourceColumn: is_home
+
+		annotation SummarizationSetBy = Automatic
+
+	column team_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b6150250-6cee-485d-bcf6-6fe878903e90
+		sourceLineageTag: team_id
+		summarizeBy: none
+		sourceColumn: team_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition team_match = entity
+		mode: directLake
+		source
+			entityName: team_match
+			expressionSource: 'DirectLake - EPLMatchesLakehouse'
+

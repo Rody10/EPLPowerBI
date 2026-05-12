@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "English Premier League Project Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ed09a54e-c782-b041-4b21-f8db4ef5478d"
+  }
+}
