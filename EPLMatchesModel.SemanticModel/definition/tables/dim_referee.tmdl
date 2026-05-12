@@ -1,0 +1,29 @@
+table dim_referee
+	lineageTag: 03678bcc-66bb-440f-8915-88649b866afb
+	sourceLineageTag: [dbo].[dim_referee]
+
+	column referee_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 217d2d16-5c19-459e-bdfd-d0c92250d741
+		sourceLineageTag: referee_id
+		summarizeBy: none
+		sourceColumn: referee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column referee
+		dataType: string
+		lineageTag: 9a33a69d-221f-49b6-82e9-69649b6b236b
+		sourceLineageTag: referee
+		summarizeBy: none
+		sourceColumn: referee
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_referee = entity
+		mode: directLake
+		source
+			entityName: dim_referee
+			expressionSource: 'DirectLake - EPLMatchesLakehouse'
+
